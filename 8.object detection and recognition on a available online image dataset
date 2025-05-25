@@ -1,0 +1,15 @@
+% 1. Load the pre-trained YOLOv2 model
+detector = yolov2ObjectDetector('yolov2-coco');  % Pre-trained YOLOv2 on COCO dataset
+
+% 2. Load an image (Replace with any image file or URL)
+img = imread('peppers.png');  % Example image (replace with your image path)
+
+% 3. Perform object detection
+[bboxes, scores, labels] = detect(detector, img);
+
+% 4. Annotate the detected objects on the image
+outputImg = insertObjectAnnotation(img, 'rectangle', bboxes, labels);
+
+% 5. Display the image with object annotations
+imshow(outputImg);
+title('Detected Objects');
