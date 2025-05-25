@@ -1,0 +1,21 @@
+clc; clear; close all;
+
+img = imread('nature.jpeg');
+gray = rgb2gray(img);
+bw = gray > 100;
+
+imshow(img), title('Original'); figure, imshow(imcrop(img, [50 50 200 200])), title('Cropped');
+figure, imshow(imresize(img, [256 256])), title('Resized');
+figure, imshow(gray), title('Grayscale'); figure, imshow(bw), title('Binary');
+
+[B, L] = bwboundaries(bw, 'noholes');
+figure, imshow(bw), title('Contours'); hold on;
+for k = 1:length(B), plot(B{k}(:,2), B{k}(:,1), 'r'); end, hold off;
+
+stats = regionprops(L, 'Centroid', 'BoundingBox');
+figure, imshow(bw), title('Blobs'); hold on;
+for k = 1:length(stats)
+    c = stats(k).Centroid;
+    rectangle('Position', stats(k).BoundingBox, 'EdgeColor', 'g');
+    plot(c(1), c(2), 'b*'); text(c(1)+5, c(2), num2str(k), 'Color', 'y');
+end, hold off;
