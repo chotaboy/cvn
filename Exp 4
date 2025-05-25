@@ -1,0 +1,23 @@
+clc; clear; close all;
+
+img = imread('pepers.jpg');
+imshow(img); hold on; title('Annotated Image');
+
+% Line
+line([50, 200], [100, 100], 'Color', 'r', 'LineWidth', 2);
+
+% Text
+text(60, 80, 'This is a pepper!', 'Color', 'yellow', 'FontSize', 14, 'FontWeight', 'bold');
+
+% Circle
+theta = linspace(0, 2*pi, 100);
+plot(300 + 40*cos(theta), 200 + 40*sin(theta), 'g', 'LineWidth', 2);
+
+% Rectangle
+rectangle('Position', [100 150 80 50], 'EdgeColor', 'cyan', 'LineWidth', 2);
+
+% Ellipse
+plot(250 + 60*cos(theta), 300 + 30*sin(theta), 'm', 'LineWidth', 2);
+
+% Save
+imwrite(getframe(gca).cdata, 'annotated_image.png');
