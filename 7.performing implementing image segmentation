@@ -1,0 +1,24 @@
+clc;
+clear;
+close all;
+
+cd('C:/Users/ECE/Desktop');
+
+
+
+% Read and reshape the image
+img = imread('natures.jpg'); % Replace with your image
+[rows, cols, channels] = size(img);
+img_reshaped = reshape(img, [], channels);
+
+% Perform k-means clustering
+k = 3; % Number of clusters
+[idx, centers] = kmeans(double(img_reshaped), k);
+
+% Reshape the clustered indices back to image dimensions
+segmented_img = reshape(idx, rows, cols);
+
+% Display original and segmented images
+figure;
+subplot(1, 2, 1), imshow(img), title('Original Image');
+subplot(1, 2, 2), imshow(segmented_img, []), title('Segmented Image');
