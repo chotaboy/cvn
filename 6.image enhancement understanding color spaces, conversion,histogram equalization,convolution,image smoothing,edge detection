@@ -1,0 +1,18 @@
+clc; clear; close all;
+
+img = imread('nature.jpeg');
+gray = rgb2gray(img);
+hsv_img = rgb2hsv(img);
+hist_eq = histeq(gray);
+sharp = imfilter(gray, fspecial('unsharp'));
+smooth = imfilter(gray, fspecial('gaussian', [5 5], 1));
+[Gmag, ~] = imgradient(imgradientxy(gray, 'Sobel'));
+edges = edge(gray, 'Canny');
+
+figure;
+titles = {'Original', 'Grayscale', 'HSV', 'Hist Eq', 'Sharpened', 'Smoothed', 'Gradient Mag', 'Canny Edge'};
+images = {img, gray, hsv_img, hist_eq, sharp, smooth, Gmag, edges};
+
+for i = 1:8
+    subplot(2,4,i), imshow(images{i}, []), title(titles{i});
+end
